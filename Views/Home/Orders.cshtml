@@ -1,0 +1,44 @@
+@{ ViewData["Title"] = "Home Page"; }@model e_commerce.Models.Order
+<h1>Welcome To The Orders Page:</h1>
+<br>
+<h3>Add an Order:</h3>
+<br>
+<form action="addOrder" method="POST">
+    <label asp-for="CustomerId">Customer:</label>
+    <select asp-for="CustomerId">
+        @foreach(var c in @ViewBag.customers){
+            <option value="@c.CustomerId">@c.Name</option>
+        }
+    </select><br>
+    <label asp-for="quantity">Quantity:</label>
+    <input asp-for="quantity" type="number" min="1" value="1">
+    <label asp-for="ProductId">Product:</label>
+    <select asp-for="ProductId">
+        @foreach(var p in ViewBag.products){
+            <option value="@p.ProductId">@p.name</option>
+        }
+    </select><br>
+    <button type="submit">Add Order</button>
+</form>
+<br>
+<br>
+<table class="table" id="wide">
+    <thead>
+        <tr>
+            <th>Customer Name:</th>
+            <th>Product:</th>
+            <th>Quantity:</th>
+            <th>Date:</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var ord in ViewBag.orders){
+        <tr>
+            <td>@ord.Customer.Name</td>
+            <td>@ord.Product.name</td>
+            <td>@ord.quantity</td>
+            <td>@ord.CreatedAt</td>
+        </tr>
+        }
+    </tbody>
+</table>

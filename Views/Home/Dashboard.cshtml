@@ -1,0 +1,170 @@
+<script src="https://code.jquery.com/jquery-1.9.1.js" integrity="sha256-e9gNBsAcA0DBuRWbm0oZfbiCyhjLrI6bmqAl5o+ZjUA=" crossorigin="anonymous"></script>
+@{ ViewData["Title"] = "Home Page"; }
+<br>
+<br>
+<div class="elements">
+    <h3>Products list:</h3>
+    <ul id="myList">
+        @foreach(var product in @ViewBag.products){
+        <li>
+            <div class="product">@product.name<br><img src="@product.imageurl"><br>@product.description<br>(@product.quantity left)</div>
+        </li>
+        }
+
+    </ul>
+    <button id="loadMore">Load more</button>
+    <button id="showLess">Show less</button>
+</div>
+<br>
+<div class="orders">
+    <h3>List of recent orders:</h3>
+    <ul id="myList1">
+        @foreach(var o in @ViewBag.orders){
+        <li>
+            <div>@o.Customer.Name purchased @o.quantity @o.Product.name...</div>
+        </li>
+        }
+    </ul>
+    <button id="loadMore1">Load more</button>
+    <button id="showLess1">Show less</button>
+</div>
+<br>
+<div class="customers">
+    <h3>List of customers:</h3>
+    <ul id="myList2">
+        @foreach(var c in @ViewBag.customers){
+        <li class="l1">
+            <div>@c.Name joined the store on (@c.CreatedAt)</div>
+        </li>
+        }
+    </ul>
+    <button id="loadMore2">Load more</button>
+    <button id="showLess2">Show less</button>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#myList li:lt(4)').show();
+        $('#showLess').hide();
+        var shown = 4;
+        $('#loadMore').click(function() {
+            $('#showLess').show();
+            shown = $('#myList li:visible').size() + 4;
+            $('#myList li:lt(' + shown + ')').show();
+        });
+        $('#showLess').click(function() {
+            $('#myList li').not(':lt(4)').hide();
+        });
+    });
+
+    $(document).ready(function() {
+        $('#myList1 li:lt(3)').show();
+        $('#showLess1').hide();
+        var shown = 3;
+        $('#loadMore1').click(function() {
+            $('#showLess1').show();
+            shown = $('#myList1 li:visible').size() + 3;
+            $('#myList1 li:lt(' + shown + ')').show();
+        });
+        $('#showLess1').click(function() {
+            $('#myList1 li').not(':lt(3)').hide();
+        });
+    });
+
+    $(document).ready(function() {
+        $('#myList2 li:lt(3)').show();
+        $('#showLess2').hide();
+        var shown = 3;
+        $('#loadMore2').click(function() {
+            $('#showLess2').show();
+            shown = $('#myList2 li:visible').size() + 3;
+            $('#myList2 li:lt(' + shown + ')').show();
+        });
+        $('#showLess2').click(function() {
+            $('#myList2 li').not(':lt(3)').hide();
+        });
+    });
+</script>
+<style>
+    #myList li {
+        display: none;
+    }
+    
+    #loadMore {
+        color: blue;
+        cursor: pointer;
+    }
+    
+    #loadMore:hover {
+        color: black;
+    }
+    
+    #showLess {
+        color: red;
+        cursor: pointer;
+    }
+    
+    #showLess:hover {
+        color: black;
+    }
+    
+    li {
+        display: inline-block;
+        list-style-type: none;
+        /* padding-right: 20px; */
+        /* float: left; */
+    }
+    /* ///////// */
+    
+    #myList1 li {
+        display: none;
+    }
+    
+    #loadMore1 {
+        color: blue;
+        cursor: pointer;
+    }
+    
+    #loadMore1:hover {
+        color: black;
+    }
+    
+    #showLess1 {
+        color: red;
+        cursor: pointer;
+    }
+    
+    #showLess1:hover {
+        color: black;
+    }
+    /* ///////// */
+    
+    #myList2 li {
+        display: none;
+    }
+    
+    #loadMore2 {
+        color: blue;
+        cursor: pointer;
+    }
+    
+    #loadMore2:hover {
+        color: black;
+    }
+    
+    #showLess2 {
+        color: red;
+        cursor: pointer;
+    }
+    
+    #showLess2:hover {
+        color: black;
+    }
+    
+    .customers {
+        width: 420px;
+    }
+    
+    .orders {
+        width: 400px;
+    }
+</style>
